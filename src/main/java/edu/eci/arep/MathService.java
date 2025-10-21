@@ -3,7 +3,14 @@ package edu.eci.arep;
 import static spark.Spark.*;
 import static spark.Spark.get;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class MathService {
+
+    private static final Logger LOGGER=LoggerFactory.getLogger(MathService.class);
+
     public static void main(String... args){
         port(getPort());
         staticFiles.location("/public");
