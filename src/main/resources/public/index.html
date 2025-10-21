@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form Example</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busquedas</title>
 </head>
 <body>
-<h1>Form with GET</h1>
-<form action="/hello">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" value="John"><br><br>
-    <input type="button" value="Submit" onclick="loadGetMsg()">
+<h1>Linear Search</h1>
+<form>
+    <label>List (comma sep):</label><input type="text" id="list-linear" value="10,20,13,40,60"><br>
+    <label>Value:</label><input type="text" id="value-linear" value="13"><br>
+    <input type="button" value="Buscar" onclick="loadLinear()">
 </form>
-<div id="getrespmsg"></div>
-<script src="script.js"></script>
+<div id="resp-linear"></div>
+
+<h1>Binary Search</h1>
+<form>
+    <label>List (comma sep, ordered):</label><input type="text" id="list-binary" value="10,13,20,40,60"><br>
+    <label>Value:</label><input type="text" id="value-binary" value="13"><br>
+    <input type="button" value="Buscar" onclick="loadBinary()">
+</form>
+<div id="resp-binary"></div>
+
+<script>
+    const proxyUrl = "http://tu-ip-proxy:4567"; // Cambia a tu proxy
+    function loadLinear() {
+        let list = document.getElementById("list-linear").value;
+        let value = document.getElementById("value-linear").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("resp-linear").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", proxyUrl + "/linearsearch?list=" + list + "&value=" + value);
+        xhttp.send();
+    }
+    function loadBinary() {
+        let list = document.getElementById("list-binary").value;
+        let value = document.getElementById("value-binary").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("resp-binary").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", proxyUrl + "/binarysearch?list=" + list + "&value=" + value);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>
