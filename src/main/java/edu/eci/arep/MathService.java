@@ -1,6 +1,44 @@
 package edu.eci.arep;
 
+import static spark.Spark.*;
+import static spark.Spark.get;
+
 public class MathService {
+    public static void main(String... args){
+        port(getPort());
+        staticFiles.location("/public");
+        get("/linearsearch", (req,res) -> {
+            String querylistStr = req.queryParams("list");
+            String queryvalue = req.queryParams("value");
+            String[] querylist = querylistStr.split(",");
+            int output = linearSearch(querylist, queryvalue);
+            return String.format("{\n" +
+                    " \"operation\": \"linearSearch\",\n" +
+                    " \"inputlist\": \"%s\",\n" +
+                    " \"value\": \"%s\"\n" +
+                    " \"output\":  \"%d\"\n" +
+                    "}", querylistStr, queryvalue, output);
+        });
+        get("/binarysearch", (req,res) -> {
+            String querylistStr = req.queryParams("list");
+            String queryvalue = req.queryParams("value");
+            String[] querylist = querylistStr.split(",");
+            int output = binarySearch(querylist, queryvalue);
+            return String.format("{\n" +
+                    " \"operation\": \"binarySearch\",\n" +
+                    " \"inputlist\": \"%s\",\n" +
+                    " \"value\": \"%s\"\n" +
+                    " \"output\":  \"%d\"\n" +
+                    "}", querylistStr, queryvalue, output);
+        });
+    }
+    private static int getPort() {
+        if (System.getenv("PORT") != null) {
+            return Integer.parseInt(System.getenv("PORT"));
+        }
+        return 8080;
+    }
+
     public static int linearSearch(String[] list, String value){
         for(int i=0; i<list.length; i++){
             if(list[i].equals(value)){
