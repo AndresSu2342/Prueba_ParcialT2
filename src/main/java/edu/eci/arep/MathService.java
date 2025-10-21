@@ -14,6 +14,9 @@ public class MathService {
     public static void main(String... args){
         port(getPort());
         staticFiles.location("/public");
+
+        LOGGER.info("MathService starting on port {}", getPort());  // Usa LOGGER para probar SLF4J
+
         get("/linearsearch", (req,res) -> {
             String querylistStr = req.queryParams("list");
             String queryvalue = req.queryParams("value");
@@ -38,6 +41,8 @@ public class MathService {
                     " \"output\":  \"%d\"\n" +
                     "}", querylistStr, queryvalue, output);
         });
+
+        LOGGER.info("Routes configured");
     }
     private static int getPort() {
         if (System.getenv("PORT") != null) {
