@@ -25,7 +25,7 @@ public class MathService {
         else if (list[mid].compareTo(value) > 0){
             return binarySearchRecursive(list, value, low, mid - 1);
         }
-        else if (list[mid].compareTo(value) < 0){
+        else {
             return binarySearchRecursive(list, value, mid + 1, high);
         }
     }
